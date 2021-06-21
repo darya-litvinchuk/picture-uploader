@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [[ -z "$POSTGRES_HOST" ]] || [[ -z "$POSTGRES_PORT" ]] || [[ -z "$POSTGRES_WORK_DB" ]] || [[ -z "$POSTGRES_WORK_USER" ]] || [[ -z "$POSTGRES_WORK_USER_PASSWORD" ]]; then
+    echo "Please, specify DB credentials POSTGRES_HOST POSTGRES_PORT POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD"
+    exit 1;
+fi
+
+LIQUIBASE_URL="jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_WORK_DB"
+LIQUIBASE_USERNAME=${POSTGRES_WORK_USER}
+LIQUIBASE_PASSWORD=${POSTGRES_WORK_USER_PASSWORD}
+
+exec /liquibase/wait-for.sh ${POSTGRES_HOST}:${POSTGRES_PORT} -- /entrypoint "$@"

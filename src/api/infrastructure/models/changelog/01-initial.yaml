@@ -1,0 +1,32 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: Darya Litvinchuk
+    changes:
+    - createTable:
+        tableName: pictures_table
+        columns:
+        - column:
+            name: name
+            autoIncrement: false
+            type: VARCHAR
+            constraints:
+                primaryKey: true
+                nullable: false
+                primaryKeyName: pictures_pkey
+        - column:
+              name: link_to_image
+              type: VARCHAR
+              constraints:
+                  nullable: False
+        - column:
+            name: mimetype
+            type: VARCHAR
+            constraints:
+              nullable: False
+        - column:
+              name: meta
+              type: JSON
+              defaultValue: '{}'
+              constraints:
+                  nullable: False
